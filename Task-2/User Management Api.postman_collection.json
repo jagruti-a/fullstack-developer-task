@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "870bd203-1046-42a0-a3cf-ee80a4616a4e",
+		"name": "User Management Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32762465" 
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"first_name\": \"Jane\",\r\n        \"last_name\": \"Smith\",\r\n        \"email\": \"jane.smith@example.com\",\r\n        \"mobile\": \"0987254321\",\r\n        \"birthdate\": \"1990-11-20\",\r\n        \"addresses\": [\r\n            {\r\n                \"address_line1\": \"789 Pine St\",\r\n                \"address_line2\": \"Floor 2\",\r\n                \"pincode\": \"11223\",\r\n                \"city\": \"Bangalore\",\r\n                \"state\": \"Karnataka\",\r\n                \"type\": \"Home\"\r\n            }\r\n        ]\r\n    }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/users"
+			},
+			"response": [
+				{
+					"name": "Create User",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"first_name\": \"Jane\",\r\n        \"last_name\": \"Smith\",\r\n        \"email\": \"jane.smith@example.com\",\r\n        \"mobile\": \"0987254321\",\r\n        \"birthdate\": \"1990-11-20\",\r\n        \"addresses\": [\r\n            {\r\n                \"address_line1\": \"789 Pine St\",\r\n                \"address_line2\": \"Floor 2\",\r\n                \"pincode\": \"11223\",\r\n                \"city\": \"Bangalore\",\r\n                \"state\": \"Karnataka\",\r\n                \"type\": \"Home\"\r\n            }\r\n        ]\r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/users"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "272"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"110-P9ARxMjPchavh7Zck5IBeYI/Jp4\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 22 Jun 2024 11:21:41 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 53,\n    \"first_name\": \"Jane\",\n    \"last_name\": \"Smith\",\n    \"email\": \"jane.smith@example.com\",\n    \"mobile\": \"0987254321\",\n    \"birthdate\": \"1990-11-20\",\n    \"addresses\": [\n        {\n            \"address_line1\": \"789 Pine St\",\n            \"address_line2\": \"Floor 2\",\n            \"pincode\": \"11223\",\n            \"city\": \"Bangalore\",\n            \"state\": \"Karnataka\",\n            \"type\": \"Home\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/users"
+			},
+			"response": [
+				{
+					"name": "Get All Users",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/users"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "15590"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3ce6-DIGGPOXVe+CVBVscacO7RrWtTss\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 22 Jun 2024 11:20:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"first_name\": \"Zachs\",\n        \"last_name\": \"Barnes\",\n        \"email\": \"zachs.barnes@example.com\",\n        \"mobile\": \"8901234563\",\n        \"birthdate\": \"1989-12-31T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 1,\n                \"address_line1\": \"4242 Pine St\",\n                \"address_line2\": \"Floor 3\",\n                \"pincode\": \"87890\",\n                \"city\": \"Gorakhpur\",\n                \"state\": \"Uttar Pradesh\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"first_name\": \"Jane\",\n        \"last_name\": \"Smith\",\n        \"email\": \"janem.smith@example.com\",\n        \"mobile\": \"0987654321\",\n        \"birthdate\": \"1990-11-19T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 2,\n                \"address_line1\": \"789 Pine St\",\n                \"address_line2\": \"Floor 2\",\n                \"pincode\": \"11223\",\n                \"city\": \"Bangalore\",\n                \"state\": \"Karnataka\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 3,\n        \"first_name\": \"Alice\",\n        \"last_name\": \"Johnson\",\n        \"email\": \"alice.johnson@example.com\",\n        \"mobile\": \"2345678001\",\n        \"birthdate\": \"1988-03-04T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 3,\n                \"address_line1\": \"101 Maple St\",\n                \"address_line2\": \"Apt 12\",\n                \"pincode\": \"54321\",\n                \"city\": \"Chennai\",\n                \"state\": \"Tamil Nadu\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 4,\n        \"first_name\": \"Bob\",\n        \"last_name\": \"Brown\",\n        \"email\": \"bob.brown@example.com\",\n        \"mobile\": \"3456789512\",\n        \"birthdate\": \"1992-07-24T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 4,\n                \"address_line1\": \"202 Oak St\",\n                \"address_line2\": \"Suite 3\",\n                \"pincode\": \"65432\",\n                \"city\": \"Hyderabad\",\n                \"state\": \"Telangana\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 5,\n        \"first_name\": \"Charlie\",\n        \"last_name\": \"Davis\",\n        \"email\": \"charlie.davis@example.com\",\n        \"mobile\": \"4564890123\",\n        \"birthdate\": \"1996-09-13T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 5,\n                \"address_line1\": \"303 Birch St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"76543\",\n                \"city\": \"Pune\",\n                \"state\": \"Maharashtra\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 6,\n        \"first_name\": \"Daniel\",\n        \"last_name\": \"Miller\",\n        \"email\": \"daniel.miller@example.com\",\n        \"mobile\": \"5673901234\",\n        \"birthdate\": \"1994-11-29T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 6,\n                \"address_line1\": \"404 Cedar St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"87654\",\n                \"city\": \"Kolkata\",\n                \"state\": \"West Bengal\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 7,\n        \"first_name\": \"Ella\",\n        \"last_name\": \"Wilson\",\n        \"email\": \"ella.wilson@example.com\",\n        \"mobile\": \"6789012349\",\n        \"birthdate\": \"1991-02-18T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 7,\n                \"address_line1\": \"505 Walnut St\",\n                \"address_line2\": \"Apt 6\",\n                \"pincode\": \"98765\",\n                \"city\": \"Ahmedabad\",\n                \"state\": \"Gujarat\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 8,\n        \"first_name\": \"Fiona\",\n        \"last_name\": \"Moore\",\n        \"email\": \"fiona.moore@example.com\",\n        \"mobile\": \"7892123456\",\n        \"birthdate\": \"1989-06-23T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 8,\n                \"address_line1\": \"606 Pine St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"87654\",\n                \"city\": \"Jaipur\",\n                \"state\": \"Rajasthan\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 9,\n        \"first_name\": \"George\",\n        \"last_name\": \"Taylor\",\n        \"email\": \"george.taylor@example.com\",\n        \"mobile\": \"8901234562\",\n        \"birthdate\": \"1993-08-10T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 9,\n                \"address_line1\": \"707 Maple St\",\n                \"address_line2\": \"Floor 4\",\n                \"pincode\": \"76543\",\n                \"city\": \"Lucknow\",\n                \"state\": \"Uttar Pradesh\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 10,\n        \"first_name\": \"Hannah\",\n        \"last_name\": \"Clark\",\n        \"email\": \"hannah.clark@example.com\",\n        \"mobile\": \"9012345658\",\n        \"birthdate\": \"1997-03-07T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 10,\n                \"address_line1\": \"808 Birch St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"65432\",\n                \"city\": \"Patna\",\n                \"state\": \"Bihar\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 11,\n        \"first_name\": \"Ivy\",\n        \"last_name\": \"Lewis\",\n        \"email\": \"ivy.lewis@example.com\",\n        \"mobile\": \"1234567809\",\n        \"birthdate\": \"1992-12-19T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 11,\n                \"address_line1\": \"909 Cedar St\",\n                \"address_line2\": \"Apt 9\",\n                \"pincode\": \"12345\",\n                \"city\": \"Bhopal\",\n                \"state\": \"Madhya Pradesh\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 12,\n        \"first_name\": \"Jack\",\n        \"last_name\": \"Walker\",\n        \"email\": \"jack.walker@example.com\",\n        \"mobile\": \"2345678904\",\n        \"birthdate\": \"1985-10-17T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 12,\n                \"address_line1\": \"1010 Oak St\",\n                \"address_line2\": \"Suite 10\",\n                \"pincode\": \"23456\",\n                \"city\": \"Chandigarh\",\n                \"state\": \"Chandigarh\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 13,\n        \"first_name\": \"Katherine\",\n        \"last_name\": \"Hill\",\n        \"email\": \"katherine.hill@example.com\",\n        \"mobile\": \"2456789012\",\n        \"birthdate\": \"1993-11-24T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 13,\n                \"address_line1\": \"111 Maple St\",\n                \"address_line2\": \"Apt 5\",\n                \"pincode\": \"34567\",\n                \"city\": \"Ranchi\",\n                \"state\": \"Jharkhand\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 14,\n        \"first_name\": \"Liam\",\n        \"last_name\": \"Allen\",\n        \"email\": \"liam.allen@example.com\",\n        \"mobile\": \"4563890123\",\n        \"birthdate\": \"1991-04-09T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 14,\n                \"address_line1\": \"222 Pine St\",\n                \"address_line2\": \"Floor 1\",\n                \"pincode\": \"45678\",\n                \"city\": \"Raipur\",\n                \"state\": \"Chhattisgarh\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 15,\n        \"first_name\": \"Mia\",\n        \"last_name\": \"Young\",\n        \"email\": \"mia.young@example.com\",\n        \"mobile\": \"5678901634\",\n        \"birthdate\": \"1989-06-18T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 15,\n                \"address_line1\": \"333 Birch St\",\n                \"address_line2\": \"Suite 7\",\n                \"pincode\": \"56789\",\n                \"city\": \"Amritsar\",\n                \"state\": \"Punjab\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 16,\n        \"first_name\": \"Noah\",\n        \"last_name\": \"Hernandez\",\n        \"email\": \"noah.hernandez@example.com\",\n        \"mobile\": \"6789012335\",\n        \"birthdate\": \"1998-08-26T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 16,\n                \"address_line1\": \"444 Cedar St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"67890\",\n                \"city\": \"Thiruvananthapuram\",\n                \"state\": \"Kerala\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 17,\n        \"first_name\": \"Olivia\",\n        \"last_name\": \"King\",\n        \"email\": \"olivia.king@example.com\",\n        \"mobile\": \"7890173456\",\n        \"birthdate\": \"1996-05-01T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 17,\n                \"address_line1\": \"555 Walnut St\",\n                \"address_line2\": \"Apt 8\",\n                \"pincode\": \"78901\",\n                \"city\": \"Shimla\",\n                \"state\": \"Himachal Pradesh\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 18,\n        \"first_name\": \"Paul\",\n        \"last_name\": \"Lopez\",\n        \"email\": \"paul.lopez@example.com\",\n        \"mobile\": \"8901234557\",\n        \"birthdate\": \"1994-12-30T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 18,\n                \"address_line1\": \"666 Pine St\",\n                \"address_line2\": \"Suite 11\",\n                \"pincode\": \"89012\",\n                \"city\": \"Dehradun\",\n                \"state\": \"Uttarakhand\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 19,\n        \"first_name\": \"Quinn\",\n        \"last_name\": \"Scott\",\n        \"email\": \"quinn.scott@example.com\",\n        \"mobile\": \"9012345278\",\n        \"birthdate\": \"1987-07-14T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 19,\n                \"address_line1\": \"777 Maple St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"90123\",\n                \"city\": \"Bhubaneswar\",\n                \"state\": \"Odisha\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 20,\n        \"first_name\": \"Ryan\",\n        \"last_name\": \"Green\",\n        \"email\": \"ryan.green@example.com\",\n        \"mobile\": \"1234567690\",\n        \"birthdate\": \"1993-03-21T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 20,\n                \"address_line1\": \"888 Birch St\",\n                \"address_line2\": \"Apt 3\",\n                \"pincode\": \"11234\",\n                \"city\": \"Jammu\",\n                \"state\": \"Jammu and Kashmir\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 21,\n        \"first_name\": \"Sophia\",\n        \"last_name\": \"Baker\",\n        \"email\": \"sophia.baker@example.com\",\n        \"mobile\": \"2345675901\",\n        \"birthdate\": \"1986-11-09T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 21,\n                \"address_line1\": \"999 Cedar St\",\n                \"address_line2\": \"Suite 5\",\n                \"pincode\": \"22345\",\n                \"city\": \"Panaji\",\n                \"state\": \"Goa\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 22,\n        \"first_name\": \"Thomas\",\n        \"last_name\": \"Nelson\",\n        \"email\": \"thomas.nelson@example.com\",\n        \"mobile\": \"3156789012\",\n        \"birthdate\": \"1997-01-07T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 22,\n                \"address_line1\": \"1010 Walnut St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"33456\",\n                \"city\": \"Gangtok\",\n                \"state\": \"Sikkim\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 23,\n        \"first_name\": \"Uma\",\n        \"last_name\": \"Roberts\",\n        \"email\": \"uma.roberts@example.com\",\n        \"mobile\": \"4562890123\",\n        \"birthdate\": \"1991-10-16T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 23,\n                \"address_line1\": \"1111 Maple St\",\n                \"address_line2\": \"Apt 2\",\n                \"pincode\": \"44567\",\n                \"city\": \"Aizawl\",\n                \"state\": \"Mizoram\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 24,\n        \"first_name\": \"Victor\",\n        \"last_name\": \"Perez\",\n        \"email\": \"victor.perez@example.com\",\n        \"mobile\": \"5678101234\",\n        \"birthdate\": \"1989-09-28T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 24,\n                \"address_line1\": \"1212 Pine St\",\n                \"address_line2\": \"Floor 5\",\n                \"pincode\": \"55678\",\n                \"city\": \"Shillong\",\n                \"state\": \"Meghalaya\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 25,\n        \"first_name\": \"Wendy\",\n        \"last_name\": \"Turner\",\n        \"email\": \"wendy.turner@example.com\",\n        \"mobile\": \"6789012325\",\n        \"birthdate\": \"1992-06-22T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 25,\n                \"address_line1\": \"1313 Birch St\",\n                \"address_line2\": \"Suite 4\",\n                \"pincode\": \"66789\",\n                \"city\": \"Imphal\",\n                \"state\": \"Manipur\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 26,\n        \"first_name\": \"Xander\",\n        \"last_name\": \"Phillips\",\n        \"email\": \"xander.phillips@example.com\",\n        \"mobile\": \"7891123456\",\n        \"birthdate\": \"1994-02-13T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 26,\n                \"address_line1\": \"1414 Cedar St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"77890\",\n                \"city\": \"Itanagar\",\n                \"state\": \"Arunachal Pradesh\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 27,\n        \"first_name\": \"Yara\",\n        \"last_name\": \"Campbell\",\n        \"email\": \"yara.campbell@example.com\",\n        \"mobile\": \"8901234587\",\n        \"birthdate\": \"1993-05-04T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 27,\n                \"address_line1\": \"1515 Walnut St\",\n                \"address_line2\": \"Apt 1\",\n                \"pincode\": \"88901\",\n                \"city\": \"Agartala\",\n                \"state\": \"Tripura\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 28,\n        \"first_name\": \"Zachary\",\n        \"last_name\": \"Mitchell\",\n        \"email\": \"zachary.mitchell@example.com\",\n        \"mobile\": \"9212145678\",\n        \"birthdate\": \"1996-12-24T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 28,\n                \"address_line1\": \"1616 Maple St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"99012\",\n                \"city\": \"Kohima\",\n                \"state\": \"Nagaland\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 29,\n        \"first_name\": \"Amanda\",\n        \"last_name\": \"Martinez\",\n        \"email\": \"amanda.martinez@example.com\",\n        \"mobile\": \"1232567390\",\n        \"birthdate\": \"1988-04-13T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 29,\n                \"address_line1\": \"1717 Pine St\",\n                \"address_line2\": \"Floor 3\",\n                \"pincode\": \"10123\",\n                \"city\": \"Puducherry\",\n                \"state\": \"Puducherry\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 30,\n        \"first_name\": \"Brian\",\n        \"last_name\": \"Collins\",\n        \"email\": \"brian.collins@example.com\",\n        \"mobile\": \"2344678901\",\n        \"birthdate\": \"1992-07-17T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 30,\n                \"address_line1\": \"1818 Birch St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"21234\",\n                \"city\": \"Port Blair\",\n                \"state\": \"Andaman and Nicobar Islands\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 31,\n        \"first_name\": \"Cynthia\",\n        \"last_name\": \"Edwards\",\n        \"email\": \"cynthia.edwards@example.com\",\n        \"mobile\": \"3456729012\",\n        \"birthdate\": \"1994-09-25T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 31,\n                \"address_line1\": \"1919 Cedar St\",\n                \"address_line2\": \"Apt 7\",\n                \"pincode\": \"32345\",\n                \"city\": \"Daman\",\n                \"state\": \"Daman and Diu\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 32,\n        \"first_name\": \"David\",\n        \"last_name\": \"Evans\",\n        \"email\": \"david.evans@example.com\",\n        \"mobile\": \"4527890123\",\n        \"birthdate\": \"1996-10-11T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 32,\n                \"address_line1\": \"2020 Walnut St\",\n                \"address_line2\": \"Suite 6\",\n                \"pincode\": \"43456\",\n                \"city\": \"Silvassa\",\n                \"state\": \"Dadra and Nagar Haveli\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 33,\n        \"first_name\": \"Evelyn\",\n        \"last_name\": \"Brooks\",\n        \"email\": \"evelyn.brooks@example.com\",\n        \"mobile\": \"5678201234\",\n        \"birthdate\": \"1990-05-08T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 33,\n                \"address_line1\": \"2121 Maple St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"54567\",\n                \"city\": \"Kavaratti\",\n                \"state\": \"Lakshadweep\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 34,\n        \"first_name\": \"Frank\",\n        \"last_name\": \"Rivera\",\n        \"email\": \"frank.rivera@example.com\",\n        \"mobile\": \"6789112145\",\n        \"birthdate\": \"1985-01-06T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 34,\n                \"address_line1\": \"2222 Pine St\",\n                \"address_line2\": \"Apt 9\",\n                \"pincode\": \"65678\",\n                \"city\": \"Dispur\",\n                \"state\": \"Assam\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 35,\n        \"first_name\": \"Grace\",\n        \"last_name\": \"Watson\",\n        \"email\": \"grace.watson@example.com\",\n        \"mobile\": \"7890163456\",\n        \"birthdate\": \"1988-08-21T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 35,\n                \"address_line1\": \"2323 Birch St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"76789\",\n                \"city\": \"Patiala\",\n                \"state\": \"Punjab\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 36,\n        \"first_name\": \"Henry\",\n        \"last_name\": \"Reed\",\n        \"email\": \"henry.reed@example.com\",\n        \"mobile\": \"8901234569\",\n        \"birthdate\": \"1993-12-12T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 36,\n                \"address_line1\": \"2424 Cedar St\",\n                \"address_line2\": \"Suite 8\",\n                \"pincode\": \"87890\",\n                \"city\": \"Guwahati\",\n                \"state\": \"Assam\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 37,\n        \"first_name\": \"Isabella\",\n        \"last_name\": \"Cox\",\n        \"email\": \"isabella.cox@example.com\",\n        \"mobile\": \"9011345678\",\n        \"birthdate\": \"1986-04-01T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 37,\n                \"address_line1\": \"2525 Walnut St\",\n                \"address_line2\": \"Apt 1\",\n                \"pincode\": \"98901\",\n                \"city\": \"Gwalior\",\n                \"state\": \"Madhya Pradesh\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 38,\n        \"first_name\": \"Jack\",\n        \"last_name\": \"Ward\",\n        \"email\": \"jack.ward@example.com\",\n        \"mobile\": \"1232567810\",\n        \"birthdate\": \"1990-11-27T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 38,\n                \"address_line1\": \"2626 Maple St\",\n                \"address_line2\": \"Floor 2\",\n                \"pincode\": \"10123\",\n                \"city\": \"Udaipur\",\n                \"state\": \"Rajasthan\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 39,\n        \"first_name\": \"Karen\",\n        \"last_name\": \"Brooks\",\n        \"email\": \"karen.brooks@example.com\",\n        \"mobile\": \"2325678901\",\n        \"birthdate\": \"1989-06-14T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 39,\n                \"address_line1\": \"2727 Pine St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"21234\",\n                \"city\": \"Dharamshala\",\n                \"state\": \"Himachal Pradesh\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 40,\n        \"first_name\": \"Luke\",\n        \"last_name\": \"Morris\",\n        \"email\": \"luke.morris@example.com\",\n        \"mobile\": \"3456489012\",\n        \"birthdate\": \"1994-07-22T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 40,\n                \"address_line1\": \"2828 Birch St\",\n                \"address_line2\": \"Suite 3\",\n                \"pincode\": \"32345\",\n                \"city\": \"Shillong\",\n                \"state\": \"Meghalaya\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 41,\n        \"first_name\": \"Mason\",\n        \"last_name\": \"Gray\",\n        \"email\": \"mason.gray@example.com\",\n        \"mobile\": \"4567890163\",\n        \"birthdate\": \"1996-09-04T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 41,\n                \"address_line1\": \"2929 Cedar St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"43456\",\n                \"city\": \"Agra\",\n                \"state\": \"Uttar Pradesh\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 42,\n        \"first_name\": \"Natalie\",\n        \"last_name\": \"Foster\",\n        \"email\": \"natalie.foster@example.com\",\n        \"mobile\": \"5678942234\",\n        \"birthdate\": \"1987-01-15T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 42,\n                \"address_line1\": \"3030 Walnut St\",\n                \"address_line2\": \"Apt 4\",\n                \"pincode\": \"54567\",\n                \"city\": \"Jabalpur\",\n                \"state\": \"Madhya Pradesh\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 43,\n        \"first_name\": \"Owen\",\n        \"last_name\": \"Gonzales\",\n        \"email\": \"owen.gonzales@example.com\",\n        \"mobile\": \"6789712345\",\n        \"birthdate\": \"1995-12-19T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 43,\n                \"address_line1\": \"3131 Maple St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"65678\",\n                \"city\": \"Guntur\",\n                \"state\": \"Andhra Pradesh\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 44,\n        \"first_name\": \"Paula\",\n        \"last_name\": \"Hansen\",\n        \"email\": \"paula.hansen@example.com\",\n        \"mobile\": \"7890723456\",\n        \"birthdate\": \"1986-08-10T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 44,\n                \"address_line1\": \"3232 Pine St\",\n                \"address_line2\": \"Floor 2\",\n                \"pincode\": \"76789\",\n                \"city\": \"Hubli\",\n                \"state\": \"Karnataka\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 45,\n        \"first_name\": \"Quincy\",\n        \"last_name\": \"Shaw\",\n        \"email\": \"quincy.shaw@example.com\",\n        \"mobile\": \"8901234560\",\n        \"birthdate\": \"1993-03-28T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 45,\n                \"address_line1\": \"3333 Birch St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"87890\",\n                \"city\": \"Kochi\",\n                \"state\": \"Kerala\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 46,\n        \"first_name\": \"Rebecca\",\n        \"last_name\": \"Hunt\",\n        \"email\": \"rebecca.hunt@example.com\",\n        \"mobile\": \"9212343678\",\n        \"birthdate\": \"1991-05-24T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 46,\n                \"address_line1\": \"3434 Cedar St\",\n                \"address_line2\": \"Suite 5\",\n                \"pincode\": \"98901\",\n                \"city\": \"Vijayawada\",\n                \"state\": \"Andhra Pradesh\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 47,\n        \"first_name\": \"Samuel\",\n        \"last_name\": \"Morgan\",\n        \"email\": \"samuel.morgan@example.com\",\n        \"mobile\": \"1233567890\",\n        \"birthdate\": \"1990-02-11T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 47,\n                \"address_line1\": \"3535 Walnut St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"10123\",\n                \"city\": \"Indore\",\n                \"state\": \"Madhya Pradesh\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 48,\n        \"first_name\": \"Tara\",\n        \"last_name\": \"Kelly\",\n        \"email\": \"tara.kelly@example.com\",\n        \"mobile\": \"2345178901\",\n        \"birthdate\": \"1995-09-13T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 48,\n                \"address_line1\": \"3636 Maple St\",\n                \"address_line2\": \"Apt 3\",\n                \"pincode\": \"21234\",\n                \"city\": \"Aurangabad\",\n                \"state\": \"Maharashtra\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 49,\n        \"first_name\": \"Uma\",\n        \"last_name\": \"Peterson\",\n        \"email\": \"uma.peterson@example.com\",\n        \"mobile\": \"3456789312\",\n        \"birthdate\": \"1987-11-21T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 49,\n                \"address_line1\": \"3737 Pine St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"32345\",\n                \"city\": \"Thane\",\n                \"state\": \"Maharashtra\",\n                \"type\": \"Office\"\n            }\n        ]\n    },\n    {\n        \"id\": 50,\n        \"first_name\": \"Victor\",\n        \"last_name\": \"Ramirez\",\n        \"email\": \"victor.ramirez@example.com\",\n        \"mobile\": \"6567890123\",\n        \"birthdate\": \"1993-06-29T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 50,\n                \"address_line1\": \"3838 Birch St\",\n                \"address_line2\": \"\",\n                \"pincode\": \"43456\",\n                \"city\": \"Mysore\",\n                \"state\": \"Karnataka\",\n                \"type\": \"Home\"\n            }\n        ]\n    },\n    {\n        \"id\": 51,\n        \"first_name\": \"Wendy\",\n        \"last_name\": \"Bailey\",\n        \"email\": \"wendy.bailey@example.com\",\n        \"mobile\": \"5677941234\",\n        \"birthdate\": \"1985-03-20T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 51,\n                \"address_line1\": \"3939 Cedar St\",\n                \"address_line2\": \"Apt 7\",\n                \"pincode\": \"54567\",\n                \"city\": \"Vadodara\",\n                \"state\": \"Gujarat\",\n                \"type\": \"Office\"\n            }\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Search Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/search?searchString=Zachs&age=>=18&city=Gorakhpur",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchString",
+							"value": "Zachs"
+						},
+						{
+							"key": "age",
+							"value": ">=18"
+						},
+						{
+							"key": "city",
+							"value": "Gorakhpur"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Search Users",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/search?searchString=Zachs&age=>=18&city=Gorakhpur",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchString",
+									"value": "Zachs"
+								},
+								{
+									"key": "age",
+									"value": ">=18"
+								},
+								{
+									"key": "city",
+									"value": "Gorakhpur"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "311"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"137-jIRLSu2ArF8am+bhpbHaEhUTD5A\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 22 Jun 2024 11:20:03 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"first_name\": \"Zachs\",\n        \"last_name\": \"Barnes\",\n        \"email\": \"zachs.barnes@example.com\",\n        \"mobile\": \"8901234563\",\n        \"birthdate\": \"1989-12-31T18:30:00.000Z\",\n        \"addresses\": [\n            {\n                \"address_id\": 1,\n                \"address_line1\": \"4242 Pine St\",\n                \"address_line2\": \"Floor 3\",\n                \"pincode\": \"87890\",\n                \"city\": \"Gorakhpur\",\n                \"state\": \"Uttar Pradesh\",\n                \"type\": \"Home\"\n            }\n        ]\n    }\n]"
+				}
+			]
+		}
+	]
+}

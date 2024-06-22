@@ -185,6 +185,11 @@ GET /api/users
 GET /api/users/search?searchString=john&age=<=30&city=Cityname
 ```
 
+### Postman API collection
+
+- Added postman api collection in User Management Api.postman_collection.json file
+
+
 ## Task 3 : Logical Tasks
 
 ## Overview
