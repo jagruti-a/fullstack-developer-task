@@ -609,176 +609,209 @@ if (task.user_id !== userId && userRole !== "admin" && userRole !== "superadmin"
 }
 
 
+////mongodb
 
-////
-📂 **Project Structure (MongoDB Version - Full Features)**
-```
 myapp/
 │── server.js
 │── .env
 │── package.json
 │── config/
-│   ├── db.js
+│   ├── db.js                <-- MongoDB Connection
+│   ├── passport.js          <-- Google & Facebook Auth
 │── models/
-│   ├── User.js
-│   ├── Task.js
+│   ├── User.js              <-- User Schema
+│   ├── Task.js              <-- Task Schema
 │── controllers/
-│   ├── authController.js
-│   ├── taskController.js
+│   ├── authController.js     <-- Authentication
+│   ├── taskController.js     <-- CRUD & Filtering
 │── middleware/
-│   ├── authenticate.js
-│   ├── roleCheck.js
+│   ├── authenticate.js       <-- JWT Middleware
+│   ├── roleCheck.js          <-- Role-Based Access Control
 │── routes/
-│   ├── authRoutes.js
-│   ├── taskRoutes.js
+│   ├── authRoutes.js         <-- Auth Endpoints
+│   ├── taskRoutes.js         <-- Task CRUD Endpoints
 │── utils/
-│   ├── generateToken.js
+│   ├── generateToken.js      <-- JWT Token Generator
+│   ├── sendEmail.js          <-- Email Sending Helper
 │── README.md
-```
 
----
-
-### **1. `server.js` (Main Entry File)**
-```javascript
-const express = require("express");
+1. config/db.js (MongoDB Connection)
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const connectDB = require("./config/db");
-const passport = require("passport");
-require("./config/passport");
-const authRoutes = require("./routes/authRoutes");
-const taskRoutes = require("./routes/taskRoutes");
-const authenticate = require("./middleware/authenticate");
 
 dotenv.config();
 
-const app = express();
-app.use(express.json());
-app.use(passport.initialize());
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB Connected...");
+  } catch (error) {
+    console.error("MongoDB Connection Failed:", error);
+    process.exit(1);
+  }
+};
 
-// Connect to MongoDB
-connectDB();
+module.exports = connectDB;
 
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/tasks", authenticate, taskRoutes);
+2. config/passport.js (Google & Facebook Auth)
 
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-```
-
----
-
-### **2. `controllers/authController.js` (Authentication, Email Verification, Refresh Token, Social Login)**
-```javascript
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const generateToken = require("../utils/generateToken");
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/api/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      let user = await User.findOne({ google_id: profile.id });
+      if (!user) {
+        user = await User.create({ name: profile.displayName, email: profile.emails[0].value, google_id: profile.id });
+      }
+      return done(null, user);
+    }
+  )
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: "/api/auth/facebook/callback",
+      profileFields: ["id", "displayName", "email"],
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      let user = await User.findOne({ facebook_id: profile.id });
+      if (!user) {
+        user = await User.create({ name: profile.displayName, email: profile.emails[0].value, facebook_id: profile.id });
+      }
+      return done(null, user);
+    }
+  )
+);
+
+3. middleware/authenticate.js (JWT Middleware)
+
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
+
+const authenticate = async (req, res, next) => {
+  const token = req.header("Authorization")?.split(" ")[1];
+
+  if (!token) return res.status(401).json({ message: "Access Denied" });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id).select("-password");
+    next();
+  } catch (error) {
+    res.status(400).json({ message: "Invalid Token" });
+  }
+};
+
+module.exports = authenticate;
+
+4. middleware/roleCheck.js (Role-Based Access)
+const roleCheck = (roles) => (req, res, next) => {
+  if (!roles.includes(req.user.role)) {
+    return res.status(403).json({ message: "Forbidden: You do not have permission" });
+  }
+  next();
+};
+
+module.exports = roleCheck;
+
+5. models/User.js (User Schema)
+const mongoose = require("mongoose");
+
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  role: { type: String, enum: ["user", "admin", "superadmin"], default: "user" },
+  is_verified: { type: Boolean, default: false },
+  verification_token: { type: String },
+  reset_token: { type: String },
+  google_id: { type: String },
+  facebook_id: { type: String },
+  created_at: { type: Date, default: Date.now },
+});
+
+module.exports = mongoose.model("User", UserSchema);
+
+6. models/Task.js (Task Schema)
+const mongoose = require("mongoose");
+
+const TaskSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  created_at: { type: Date, default: Date.now },
+});
+
+module.exports = mongoose.model("Task", TaskSchema);
+
+7. utils/generateToken.js (JWT Generator)
+const jwt = require("jsonwebtoken");
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+};
+
+module.exports = generateToken;
+
+8. utils/sendEmail.js (Email Helper)
 const nodemailer = require("nodemailer");
 
-exports.register = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-    const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ message: "User already exists" });
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1d" });
-
-    const user = await User.create({ name, email, password: hashedPassword, verification_token: verificationToken });
-    
-    sendVerificationEmail(email, verificationToken);
-    res.status(201).json({ message: "Registration successful. Verify email." });
-  } catch (error) {
-    res.status(500).json({ message: "Error registering user" });
-  }
-};
-
-const sendVerificationEmail = (email, token) => {
+const sendEmail = async (to, subject, text) => {
   const transporter = nodemailer.createTransport({
     service: "Gmail",
-    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
   });
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: "Verify your account",
-    text: `Click here to verify: ${process.env.BASE_URL}/api/auth/verify/${token}`
-  };
-  transporter.sendMail(mailOptions);
+
+  await transporter.sendMail({ from: process.env.EMAIL_USER, to, subject, text });
 };
 
-exports.verifyEmail = async (req, res) => {
-  try {
-    const { token } = req.params;
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    await User.findOneAndUpdate({ email: decoded.email }, { is_verified: true, verification_token: null });
-    res.json({ message: "Email verified successfully" });
-  } catch (error) {
-    res.status(400).json({ message: "Invalid or expired token" });
-  }
-};
-```
+module.exports = sendEmail;
 
----
+9. routes/authRoutes.js (Auth Endpoints)
+const express = require("express");
+const { register, verifyEmail, googleLogin, googleCallback } = require("../controllers/authController");
+const router = express.Router();
 
-### **3. `controllers/taskController.js` (CRUD with Pagination & Filtering)**
-```javascript
-const Task = require("../models/Task");
+router.post("/register", register);
+router.get("/verify/:token", verifyEmail);
+router.get("/google", googleLogin);
+router.get("/google/callback", googleCallback);
 
-exports.getTasks = async (req, res) => {
-  try {
-    const { page = 1, limit = 10, search = "" } = req.query;
-    const filter = search ? { title: new RegExp(search, "i") } : {};
-    const tasks = await Task.find(filter)
-      .skip((page - 1) * limit)
-      .limit(parseInt(limit));
-    res.json(tasks);
-  } catch (error) {
-    res.status(500).json({ message: "Error retrieving tasks" });
-  }
-};
+module.exports = router;
 
-exports.createTask = async (req, res) => {
-  try {
-    const { title, description } = req.body;
-    const task = new Task({ title, description, user_id: req.user.id });
-    await task.save();
-    res.status(201).json(task);
-  } catch (error) {
-    res.status(500).json({ message: "Error creating task" });
-  }
-};
+10. routes/taskRoutes.js (CRUD & Filtering)
+const express = require("express");
+const { getTasks, createTask, updateTask, deleteTask } = require("../controllers/taskController");
+const roleCheck = require("../middleware/roleCheck");
+const router = express.Router();
 
-exports.updateTask = async (req, res) => {
-  try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!task) return res.status(404).json({ message: "Task not found" });
-    res.json(task);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating task" });
-  }
-};
+router.get("/", getTasks);
+router.post("/", roleCheck(["admin", "superadmin"]), createTask);
+router.put("/:id", roleCheck(["admin", "superadmin"]), updateTask);
+router.delete("/:id", roleCheck(["admin", "superadmin"]), deleteTask);
 
-exports.deleteTask = async (req, res) => {
-  try {
-    const task = await Task.findByIdAndDelete(req.params.id);
-    if (!task) return res.status(404).json({ message: "Task not found" });
-    res.json({ message: "Task deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting task" });
-  }
-};
-```
+module.exports = router;
 
----
 
-Now the **Task Controller** includes:  
-✅ **Create Task**  
-✅ **Get Tasks with Pagination & Filtering**  
-✅ **Update Task**  
-✅ **Delete Task**  
 
-This ensures complete CRUD operations for **tasks**. 🚀 Let me know if anything else needs improvement! 🎯
+
+
+
+
+
 
