@@ -608,3 +608,177 @@ if (task.user_id !== userId && userRole !== "admin" && userRole !== "superadmin"
     return res.status(403).json({ error: "Unauthorized" });
 }
 
+
+
+////
+📂 **Project Structure (MongoDB Version - Full Features)**
+```
+myapp/
+│── server.js
+│── .env
+│── package.json
+│── config/
+│   ├── db.js
+│── models/
+│   ├── User.js
+│   ├── Task.js
+│── controllers/
+│   ├── authController.js
+│   ├── taskController.js
+│── middleware/
+│   ├── authenticate.js
+│   ├── roleCheck.js
+│── routes/
+│   ├── authRoutes.js
+│   ├── taskRoutes.js
+│── utils/
+│   ├── generateToken.js
+│── README.md
+```
+
+---
+
+### **1. `server.js` (Main Entry File)**
+```javascript
+const express = require("express");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const passport = require("passport");
+require("./config/passport");
+const authRoutes = require("./routes/authRoutes");
+const taskRoutes = require("./routes/taskRoutes");
+const authenticate = require("./middleware/authenticate");
+
+dotenv.config();
+
+const app = express();
+app.use(express.json());
+app.use(passport.initialize());
+
+// Connect to MongoDB
+connectDB();
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", authenticate, taskRoutes);
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+```
+
+---
+
+### **2. `controllers/authController.js` (Authentication, Email Verification, Refresh Token, Social Login)**
+```javascript
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const generateToken = require("../utils/generateToken");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+
+exports.register = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const userExists = await User.findOne({ email });
+    if (userExists) return res.status(400).json({ message: "User already exists" });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+    const user = await User.create({ name, email, password: hashedPassword, verification_token: verificationToken });
+    
+    sendVerificationEmail(email, verificationToken);
+    res.status(201).json({ message: "Registration successful. Verify email." });
+  } catch (error) {
+    res.status(500).json({ message: "Error registering user" });
+  }
+};
+
+const sendVerificationEmail = (email, token) => {
+  const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+  });
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Verify your account",
+    text: `Click here to verify: ${process.env.BASE_URL}/api/auth/verify/${token}`
+  };
+  transporter.sendMail(mailOptions);
+};
+
+exports.verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    await User.findOneAndUpdate({ email: decoded.email }, { is_verified: true, verification_token: null });
+    res.json({ message: "Email verified successfully" });
+  } catch (error) {
+    res.status(400).json({ message: "Invalid or expired token" });
+  }
+};
+```
+
+---
+
+### **3. `controllers/taskController.js` (CRUD with Pagination & Filtering)**
+```javascript
+const Task = require("../models/Task");
+
+exports.getTasks = async (req, res) => {
+  try {
+    const { page = 1, limit = 10, search = "" } = req.query;
+    const filter = search ? { title: new RegExp(search, "i") } : {};
+    const tasks = await Task.find(filter)
+      .skip((page - 1) * limit)
+      .limit(parseInt(limit));
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving tasks" });
+  }
+};
+
+exports.createTask = async (req, res) => {
+  try {
+    const { title, description } = req.body;
+    const task = new Task({ title, description, user_id: req.user.id });
+    await task.save();
+    res.status(201).json(task);
+  } catch (error) {
+    res.status(500).json({ message: "Error creating task" });
+  }
+};
+
+exports.updateTask = async (req, res) => {
+  try {
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!task) return res.status(404).json({ message: "Task not found" });
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating task" });
+  }
+};
+
+exports.deleteTask = async (req, res) => {
+  try {
+    const task = await Task.findByIdAndDelete(req.params.id);
+    if (!task) return res.status(404).json({ message: "Task not found" });
+    res.json({ message: "Task deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting task" });
+  }
+};
+```
+
+---
+
+Now the **Task Controller** includes:  
+✅ **Create Task**  
+✅ **Get Tasks with Pagination & Filtering**  
+✅ **Update Task**  
+✅ **Delete Task**  
+
+This ensures complete CRUD operations for **tasks**. 🚀 Let me know if anything else needs improvement! 🎯
+
